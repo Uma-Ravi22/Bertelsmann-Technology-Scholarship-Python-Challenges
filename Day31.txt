@@ -1,0 +1,32 @@
+# Day 31 Challenge - Check for Anagrams
+
+def countCharacters(s):
+    #Dictionary is created.
+    charcount = {}
+    
+    #In charcount dictionary,each character of the string is stored as KEY, number of occurrence is stored as VALUE.
+    for ch in s:
+        if ch in charcount:
+            charcount[ch] += 1
+        else:
+            charcount[ch] = 1
+            
+    return charcount
+
+# Main
+#Getting 2 strings from User
+s1 = input("Enter the First string:")
+s2 = input("Enter the Second string:")
+s1 = s1.lower()
+s2 = s2.lower()
+
+#Getting Characters:Count as key:value pair for each string
+c1 = countCharacters(s1)
+c2 = countCharacters(s2)
+
+# If KEY:VALUE pairs of 2 strings are same, they are ANAGRAMS.
+if c1 == c2:
+    print("The entered strings are Anagrams")
+else:
+    print("The entered strings are not Anagrams")
+
