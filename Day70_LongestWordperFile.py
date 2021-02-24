@@ -1,0 +1,92 @@
+{
+ "cells": [
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "1342-0.txt:http://www.gutenberg.org/1/3/4/1342/\n",
+      "2701-0.txt:http://www.gutenberg.org/2/7/0/2701/\n",
+      "43-0.txt:http://www.gutenberg.org/4/43/\n",
+      "46-0.txt:http://www.gutenberg.net/4/46/\n",
+      "61105-0.txt:http://www.gutenberg.org/6/1/1/0/61105/\n",
+      "84-0.txt:http://www.gutenberg.org/8/84/\n",
+      "pg25525.txt:http://www.gutenberg.org/2/5/5/2/25525/\n",
+      "pg28860.txt:http://www.gutenberg.org/2/8/8/6/28860/\n",
+      "pg345.txt:two-pages-to-the-week-with-Sunday-squeezed-in-a-corner\n",
+      "pg514.txt:_________________________________________________\n"
+     ]
+    }
+   ],
+   "source": [
+    "# Day 70: Longest Word per File.\n",
+    "# In this exercise, write two functions. find_longest_word takes a filename as an argument and returns the \n",
+    "# longest word found in the file.\n",
+    "# The second function, find- _all_longest_words, takes a directory name and returns a dict in which the keys \n",
+    "# are filenames and the values are the longest words from each file.\n",
+    "\n",
+    "import os\n",
+    " \n",
+    "# Takes each file from directory, find the longest word, returns it.\n",
+    "\n",
+    "def find_longest_word(filename):\n",
+    "    longword = ''\n",
+    "    with open(filename, encoding='utf8') as my_file:\n",
+    "        for line in my_file:\n",
+    "            for word in line.strip().split():\n",
+    "                if len(word) > len(longword):\n",
+    "                    longword = word\n",
+    "    return longword\n",
+    "\n",
+    "\n",
+    "# Function takes the directory name as argument, and for each for each file is passed to \n",
+    "# find_longest_word function from which receives longest word for each file, store it in mydict.\n",
+    "# mydict has filename as key and longest word as value, which is returned.\n",
+    "\n",
+    "def find_all_longest_words(directoryname):\n",
+    "    mydict = {}\n",
+    "    with os.scandir(directoryname) as files:\n",
+    "        for file in files:\n",
+    "            mydict[file.name] = find_longest_word(os.path.join(directoryname,file.name))\n",
+    "    return mydict\n",
+    "\n",
+    "# Main\n",
+    "ansdict = find_all_longest_words(\"books\")\n",
+    "for key, value in ansdict.items():\n",
+    "        print(f'{key}:{value}')"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.3"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
